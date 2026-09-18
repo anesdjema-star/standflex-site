@@ -1,183 +1,29 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StandFlex — twelve buildable stand designs, priced, in an hour</title>
-<meta name="description" content="StandFlex turns a stand size into twelve buildable modular designs, each with a bill of materials and a price. For stand builders working with 40 mm systems.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#EDEFF2;        /* brushed aluminium, light */
-    --paper-2:#E1E4E9;
-    --ink:#0F1B2D;          /* deep navy ink */
-    --ink-2:#4A5568;
-    --rule:#C3C9D2;         /* the 40 mm post */
-    --led:#2C6BFF;          /* lightbox blue */
-    --bay:calc(100vw / 12); /* one "bay" of the page grid */
-    --measure:64ch;
-    --font:"Archivo",system-ui,sans-serif;
-  }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){--paper:#0F1B2D;--paper-2:#15233A;--ink:#EDEFF2;--ink-2:#AEB7C6;--rule:#2A3A55;--led:#6E9BFF}
-  }
-  :root[data-theme="dark"]{--paper:#0F1B2D;--paper-2:#15233A;--ink:#EDEFF2;--ink-2:#AEB7C6;--rule:#2A3A55;--led:#6E9BFF}
-
-  *{box-sizing:border-box;margin:0}
-  html{scroll-behavior:smooth}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  body{
-    font-family:var(--font);color:var(--ink);background:var(--paper);
-    line-height:1.45;font-size:clamp(16px,1.05vw,18px);
-    /* the bay grid: a hairline "post" every twelfth of the page */
-    background-image:repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px var(--bay));
-    background-attachment:fixed;
-  }
-  a{color:inherit}
-  img{max-width:100%;display:block}
-  :focus-visible{outline:3px solid var(--led);outline-offset:3px}
-
-  header,main,footer{max-width:1240px;margin:0 auto;padding:0 calc(var(--bay)*0.5)}
-  header{display:flex;justify-content:space-between;align-items:baseline;padding-top:28px;padding-bottom:28px}
-  .mark{font-weight:800;font-stretch:112%;letter-spacing:-.02em;font-size:1.25rem;text-decoration:none}
-  .mark small{font-weight:400;font-stretch:88%;color:var(--ink-2);margin-left:.6em;font-size:.85rem}
-  nav a{text-decoration:none;color:var(--ink-2);margin-left:1.4em;font-size:.95rem}
-  nav a:hover{color:var(--ink)}
-
-  /* hero: the headline is the type treatment; the sheet is the memorable thing */
-  .hero{padding:6vh 0 4vh}
-  .hero h1{
-    font-weight:800;font-stretch:78%;line-height:.92;letter-spacing:-.035em;
-    font-size:clamp(2.8rem,7.2vw,6.4rem);max-width:14ch;
-  }
-  .hero p{max-width:var(--measure);margin-top:1.4rem;color:var(--ink-2);font-size:1.1em}
-  .hero .cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
-  .btn{
-    display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
-    padding:.85em 1.4em;font-weight:700;border-radius:3px;border:2px solid var(--ink)
-  }
-  .btn.ghost{background:transparent;color:var(--ink)}
-  .btn:hover{background:var(--led);border-color:var(--led);color:#fff}
-
-  .sheet{margin:5vh calc(var(--bay)*-0.5) 0;background:var(--ink);padding:calc(var(--bay)*0.25)}
-  .sheet img{width:100%;border-radius:2px}
-  .sheet figcaption{color:#C9D2E3;padding:.9rem .2rem 0;font-size:.9rem;font-stretch:90%}
-  .sheet figcaption b{color:#fff;font-weight:600}
-
-  section{padding:9vh 0 2vh}
-  h2{font-weight:800;font-stretch:80%;letter-spacing:-.025em;font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1;max-width:20ch}
-  .lede{max-width:var(--measure);color:var(--ink-2);margin-top:1rem}
-
-  /* three real steps → a sequence, so numbers are information */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--bay)*0.5);margin-top:3rem}
-  .steps>div{border-top:2px solid var(--ink);padding-top:1rem}
-  .steps h3{font-weight:700;font-stretch:90%;font-size:1.15rem;margin-bottom:.4rem}
-  .steps h3 span{display:inline-block;width:1.6em;color:var(--led);font-weight:800}
-  .steps p{color:var(--ink-2);font-size:.98rem}
-
-  /* what a builder receives: the pages, shown as pages */
-  .pages{display:grid;grid-template-columns:1.4fr 1fr;gap:calc(var(--bay)*0.5);margin-top:3rem;align-items:start}
-  .pages img{background:#fff;box-shadow:0 1px 0 var(--rule),0 12px 30px -18px rgba(15,27,45,.5)}
-  .pages ul{list-style:none;padding:0;margin-top:.5rem}
-  .pages li{padding:.9rem 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:1rem}
-  .pages li b{font-weight:700;font-stretch:90%}
-  .pages li span{color:var(--ink-2)}
-
-  /* the honest table: what is fixed, what is yours */
-  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--bay)*0.5);margin-top:3rem}
-  .facts dl{border-top:2px solid var(--ink);padding-top:1rem}
-  .facts dt{font-weight:700;font-stretch:90%}
-  .facts dd{color:var(--ink-2);margin-bottom:1rem}
-
-  .offer{background:var(--ink);color:var(--paper);margin:9vh calc(var(--bay)*-0.5) 0;padding:calc(var(--bay)*0.5)}
-  .offer h2{color:#fff}
-  .offer p{max-width:var(--measure);color:#C9D2E3;margin-top:1rem}
-  .offer .btn{background:#fff;color:var(--ink);border-color:#fff;margin-top:1.6rem}
-  .offer .btn:hover{background:var(--led);color:#fff;border-color:var(--led)}
-  .offer .fine{font-size:.9rem;margin-top:1.2rem;color:#9AA7BD}
-
-  footer{padding:3rem calc(var(--bay)*0.5) 4rem;color:var(--ink-2);font-size:.9rem;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
-  footer p{max-width:48ch}
-
-  @media (max-width:860px){
-    :root{--bay:calc(100vw / 6)}
-    .steps,.pages,.facts{grid-template-columns:1fr}
-    nav a{margin-left:1em}
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <a class="mark" href="#">StandFlex<small>for stand builders</small></a>
-  <nav><a href="#how">How it works</a><a href="#pack">What you get</a><a href="#offer">Try it</a></nav>
-</header>
-
-<main>
-  <section class="hero" id="top">
-    <h1>Twelve buildable stand designs, priced, in an hour.</h1>
-    <p>Give StandFlex a size and a template. It returns twelve distinct modular stands, every one assembled from 40 mm profiles, 1 m bays and SEG frames, checked for collisions, and priced to the part. Your client picks; your workshop packs exactly what is drawn.</p>
-    <div class="cta">
-      <a class="btn" href="#offer">Get your first three quotes free</a>
-      <a class="btn ghost" href="mailto:contact@standflex.eu?subject=StandFlex%20quote">contact@standflex.eu</a>
-    </div>
-
-    <figure class="sheet">
-      <img src="assets/sheet_6x3.png" alt="Twelve alternative designs for a 6 by 3 metre corner stand, each labelled with its design code" width="1600" height="1000" loading="eager">
-      <figcaption><b>6 × 3 m corner, one client brand, one request.</b> Towers, skylines, lit facades, canopies and interiors, all from the same stock of parts. Each design code is a build order.</figcaption>
-    </figure>
-  </section>
-
-  <section id="how">
-    <h2>From enquiry to priced proposal, before the client's coffee is cold.</h2>
-    <p class="lede">The generator does the part of the job that eats a designer's day: laying out the structure, checking it fits, and counting the parts. What is left for you is the decision.</p>
-    <div class="steps">
-      <div><h3><span>1</span>Send the size</h3><p>Length, depth, template (corner, row, peninsula, island) and the client's logo. That is the whole brief.</p></div>
-      <div><h3><span>2</span>Pick from twelve</h3><p>A single sheet in the client's colours. Every design passed a geometric fit and collision check before it was rendered.</p></div>
-      <div><h3><span>3</span>Send the dossier</h3><p>Four views, the twelve alternatives, and a bill of materials with unit and total prices, on your paper, in about an hour.</p></div>
-    </div>
-  </section>
-
-  <section id="pack">
-    <h2>What a builder actually receives.</h2>
-    <div class="pages">
-      <img src="assets/dossier_p1.png" alt="First page of a StandFlex proposal: large hero render, three smaller views, indicative price and company footer" width="1240" height="1754" loading="lazy">
-      <ul>
-        <li><b>Page 1</b><span>Hero render, front, side and detail views, overall height, indicative price.</span></li>
-        <li><b>Page 2</b><span>The twelve alternatives for the same footprint and brand, each with its design code.</span></li>
-        <li><b>Page 3</b><span>Bill of materials: posts by length, beams, SEG bays, lightboxes, roof, floor, furniture, services. Unit and total.</span></li>
-        <li><b>Plus</b><span>The BOM as CSV and JSON, so it drops into your own quoting sheet.</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <section>
-    <h2>Fixed where it must be. Yours where it should be.</h2>
-    <div class="facts">
-      <dl>
-        <dt>The system</dt><dd>40 × 40 mm aluminium profiles, 1.00 m bay pitch, SEG fabric frames, post heights 2.5 to 4.0 m. It maps onto Octanorm, beMatrix, SYMA and similar stock.</dd>
-        <dt>The check</dt><dd>Every design is a geometric fit and collision check: posts, beams, panels, counter, screen, furniture. Structural engineering stays with the builder.</dd>
-      </dl>
-      <dl>
-        <dt>The prices</dt><dd>Your rate card is loaded once. From then on every proposal carries your prices, your margin and your company footer.</dd>
-        <dt>The output</dt><dd>PDF, PNG sheets, CSV and JSON. Nothing to install, nothing to learn. You send a size, you receive a proposal.</dd>
-      </dl>
-    </div>
-  </section>
-
-  <section class="offer" id="offer">
-    <h2>Your first three quotes are on us.</h2>
-    <p>Reply with the size and template of your next real enquiry and the client's logo. The sheet and the dossier come back the same working day. No account, no commitment. If it saves you a designer's day, we talk about the next ones.</p>
-    <a class="btn" href="mailto:contact@standflex.eu?subject=StandFlex%20—%20first%20quote&body=Size%20(L%20x%20D):%0ATemplate%20(corner%2Frow%2Fpeninsula%2Fisland):%0ASystem%20you%20build%20with:%0AClient%20logo%20attached.">Send an enquiry to contact@standflex.eu</a>
-    <p class="fine">Introductory offer for stand builders in Europe. Prices in proposals are indicative until your rate card is loaded.</p>
-  </section>
-</main>
-
-<footer>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark"><title>StandFlex — Modular stand design, ready for your next proposal</title><meta name="description" content="Modular stand design packages for stand builders: twelve alternatives, presentation views and a bill of materials, in your branding."><meta property="og:title" content="StandFlex — One brief. Twelve possibilities."><meta property="og:description" content="Design and quotation packages for stand builders."><meta property="og:image" content="https://standflex.eu/assets/hero.png"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%237e8fff'/%3E%3Ctext x='7' y='28' font-size='25' font-family='Arial' font-weight='bold'%3ESF%3C/text%3E%3C/svg%3E"><style>
+:root{--bg:#0b0f17;--panel:#131a26;--line:#293345;--text:#f3f5fa;--muted:#b0bdd0;--accent:#91a0ff}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.6 Arial,Helvetica,sans-serif}img{display:block;max-width:100%;height:auto}a{color:inherit}button,input,select,textarea{font:inherit}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--accent);outline-offset:5px}button{cursor:pointer}.wrap{width:min(1280px,calc(100% - 96px));margin:auto}.skip{position:absolute;top:-100px}.skip:focus{top:12px;z-index:10;background:var(--bg);padding:12px}header{display:flex;align-items:center;justify-content:space-between;padding:26px 0;border-bottom:1px solid var(--line)}.logo{font-size:25px;font-weight:800;text-decoration:none;letter-spacing:-1px}.logo span{color:var(--accent)}nav{display:flex;gap:28px;align-items:center;font-size:14px}nav a{text-decoration:none;color:var(--muted);padding:10px 0}nav a:hover{color:white}.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 22px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(42px,4.8vw,70px);line-height:1.03;letter-spacing:-3px;margin-bottom:24px}h1 span{color:var(--accent)}h2{font-size:clamp(32px,3.3vw,48px);line-height:1.1;letter-spacing:-1.7px;margin-bottom:20px}h3{font-size:19px;line-height:1.35;margin-bottom:12px}.muted,.intro{color:var(--muted)}.intro{max-width:55ch}.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:44px;align-items:center;padding:72px 0 52px}.hero p.intro{font-size:18px}.hero-visual{margin:0;min-width:0}.image-button{display:block;padding:0;border:0;background:#202020;width:100%;position:relative;color:white;text-align:left}.hero-visual .image-button{border:1px solid var(--line)}.hero-visual img{width:100%;aspect-ratio:10/9;object-fit:cover}.expand{position:absolute;right:14px;bottom:14px;background:#0b0f17e8;border:1px solid #566179;width:38px;height:38px;text-align:center;line-height:36px;font-size:23px}.hero-visual figcaption{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding-top:14px;gap:10px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 16px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 20px;background:var(--accent);border:1px solid var(--accent);color:#0b0f17;text-decoration:none;font-size:14px;font-weight:700;border-radius:4px}.btn:hover{background:white;border-color:white}.btn.secondary{background:transparent;color:white;border-color:#536078}.micro{font-size:13px;color:var(--muted)}.proof{display:flex;gap:0;border-block:1px solid var(--line);padding:20px 0}.proof span{flex:1;font-size:14px;color:var(--muted)}.proof strong{color:white;margin-right:8px}.section{padding:78px 0}.section-head{display:flex;justify-content:space-between;gap:32px;align-items:end;margin-bottom:28px}.section-head h2{margin-bottom:12px}.section-head p{margin-bottom:0}.gallery-controls{display:flex;gap:10px;align-items:center;white-space:nowrap}.icon-btn{width:46px;height:46px;border:1px solid #536078;background:transparent;color:white;border-radius:50%;font-size:20px}.icon-btn:disabled{opacity:.3;cursor:default}.counter{min-width:56px;text-align:center;font-size:13px;color:var(--muted)}.gallery{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 22px)/2);gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#536078 var(--bg);padding-bottom:16px}.card{scroll-snap-align:start;min-width:0;border:1px solid var(--line);background:var(--panel)}.card img{width:100%;aspect-ratio:808/541;object-fit:contain}.card-caption{display:flex;gap:18px;padding:20px}.card h3{font-size:17px;margin:0 0 5px}.card p{font-size:11px;letter-spacing:1px;color:var(--muted);margin:0}.number{color:var(--accent);font-size:14px}.divider{border-top:1px solid var(--line)}.process-head{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:end}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:38px;margin-top:40px}.step{border-top:1px solid var(--line);padding-top:22px}.step .number{display:block;margin-bottom:20px}.step p{color:var(--muted);font-size:16px;margin-bottom:0}.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}.paper{width:min(100%,360px);margin:auto;box-shadow:0 20px 65px #0008}.paper .image-button{background:white}.paper img{width:100%}.paper figcaption{font-size:13px;color:var(--muted);padding-top:16px}.delivery-list{margin:26px 0}.delivery-list div{border-top:1px solid var(--line);padding:16px 0}.delivery-list dt{font-weight:bold}.delivery-list dd{margin:6px 0 0;color:var(--muted);font-size:16px}.text-link{color:var(--accent);text-underline-offset:5px}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}.facts article{border-left:2px solid #495b93;padding-left:24px}.facts p{font-size:16px;color:var(--muted);margin-bottom:0}.offer{background:linear-gradient(120deg,#1b2541,#111725);border-block:1px solid #394568;padding:65px 0}.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start}.offer h2{max-width:15ch}.offer p{color:var(--muted)}form{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{display:block;font-size:13px;color:var(--muted)}input,select,textarea{display:block;width:100%;margin-top:7px;border:1px solid #536078;background:#0d1422;color:white;padding:12px;border-radius:4px;min-width:0}textarea{resize:vertical;min-height:90px}.full{grid-column:1/-1}form p{font-size:13px;margin:0}footer{padding:36px 0;display:flex;justify-content:space-between;gap:30px;font-size:13px;color:var(--muted)}footer p{max-width:57ch;margin:0}footer a{text-underline-offset:4px}dialog{width:min(1200px,95vw);max-height:94dvh;background:#111722;color:white;border:1px solid #536078;padding:18px;border-radius:8px}dialog::backdrop{background:#000d}dialog .bar{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:16px}dialog .bar p{margin:0;font-size:15px}dialog img{max-height:76dvh;max-width:100%;width:auto;margin:auto;object-fit:contain}body.modal-open{overflow:hidden}@media(min-width:1400px){.hero{padding-top:86px}}@media(max-width:950px){.wrap{width:calc(100% - 48px)}.hero{gap:24px}.hero h1{letter-spacing:-2px}.deliverables,.offer-grid{gap:32px}.facts{gap:22px}.hero-visual img{aspect-ratio:4/5}}@media(max-width:700px){.wrap{width:calc(100% - 40px)}header{padding:18px 0}.logo{font-size:22px}nav{gap:16px;font-size:12px}nav .optional{display:none}.hero{grid-template-columns:1fr;padding:40px 0 30px;gap:20px}h1{font-size:48px;max-width:14ch}.hero-visual img{aspect-ratio:10/7;object-fit:contain}.proof{flex-wrap:wrap;gap:12px}.proof span{flex:1 1 40%;font-size:12px}.section{padding:48px 0}.section-head{align-items:start;flex-direction:column;gap:18px}.gallery{grid-auto-columns:90%;gap:14px}.process-head,.deliverables,.offer-grid,.facts,.steps{grid-template-columns:1fr;gap:28px}.steps{margin-top:26px}.step .number{margin-bottom:10px}.deliverables .paper{order:2;width:85%}.offer{padding:42px 0}.offer h2{max-width:100%}footer{flex-direction:column;gap:20px}.card-caption{padding:16px}.card h3{font-size:16px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{scroll-behavior:auto!important}}
+</style></head><body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><a class="logo" href="#">Stand<span>Flex</span></a><nav aria-label="Main navigation"><a class="optional" href="#how">How it works</a><a href="#designs">Designs</a><a href="#offer">Get in touch ↗</a></nav></header><main id="main"><section class="hero"><div><p class="eyebrow">For stand builders · Design & quotation</p><h1>One brief.<br>Twelve<br><span>possibilities.</span></h1><p class="intro">Turn your next exhibition enquiry into a modular stand proposal. Twelve design alternatives, presentation views and a bill of materials — in your client's branding.</p><div class="actions"><a class="btn" href="#offer">Request your free quotes ↗</a><a class="btn secondary" href="#pack">Explore the package</a></div><p class="micro">First three quotes free. No account required.</p></div><figure class="hero-visual"><button class="image-button" data-image="assets/hero.webp" data-caption="6 × 3 m corner stand — Lavanda Magica concept" aria-label="Enlarge featured stand"><img src="assets/hero.webp" width="1600" height="1120" fetchpriority="high" alt="Purple and white modular corner stand with a tall central tower"><span class="expand">↗</span></button><figcaption><span>FEATURED CONCEPT / LAVANDA MAGICA</span><span>6 × 3 m · Corner</span></figcaption></figure></section><div class="proof"><span><strong>12</strong> design alternatives</span><span><strong>3</strong> proposal pages</span><span><strong>PDF + PNG</strong> presentation</span><span><strong>CSV + JSON</strong> parts data</span></div>
+<section class="section" id="designs"><div class="section-head"><div><p class="eyebrow">01 / Explore the possibilities</p><h2>Same footprint.<br>A different presence.</h2><p class="intro">One 6 × 3 m corner. One brand. Twelve ways to make it work.</p></div><div class="gallery-controls"><button class="icon-btn" id="prev" aria-label="Previous design">←</button><span class="counter" id="counter" aria-live="polite">01 / 12</span><button class="icon-btn" id="next" aria-label="Next design">→</button></div></div><div class="gallery" id="gallery" tabindex="0" aria-label="Stand design gallery. Scroll or use the arrow buttons"><article class="card"><button class="image-button" data-image="assets/tile_00.webp" data-caption="Skyline stand with lit facade and canopy" aria-label="Enlarge Skyline stand with lit facade and canopy"><img src="assets/tile_00.webp" alt="Skyline stand with lit facade and canopy" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">01</span><div><h3>Skyline stand with lit facade and canopy</h3><p>SF-C-6X3-K-L-P</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_01.webp" data-caption="Tower stand with ribbon facade and canopy" aria-label="Enlarge Tower stand with ribbon facade and canopy"><img src="assets/tile_01.webp" alt="Tower stand with ribbon facade and canopy" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">02</span><div><h3>Tower stand with ribbon facade and canopy</h3><p>SF-C-6X3-PC-T-B-P</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_02.webp" data-caption="Skyline stand with lantern facade" aria-label="Enlarge Skyline stand with lantern facade"><img src="assets/tile_02.webp" alt="Skyline stand with lantern facade" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">03</span><div><h3>Skyline stand with lantern facade</h3><p>SF-C-6X3-TR-K-L</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_03.webp" data-caption="Box stand with canopy" aria-label="Enlarge Box stand with canopy"><img src="assets/tile_03.webp" alt="Box stand with canopy" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">04</span><div><h3>Box stand with canopy</h3><p>SF-C-6X3-A-P</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_04.webp" data-caption="Box stand with ribbon facade and lit ring" aria-label="Enlarge Box stand with ribbon facade and lit ring"><img src="assets/tile_04.webp" alt="Box stand with ribbon facade and lit ring" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">05</span><div><h3>Box stand with ribbon facade and lit ring</h3><p>SF-C-6X3-TR-A-B-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_05.webp" data-caption="Tower stand with ribbon facade and lit ring" aria-label="Enlarge Tower stand with ribbon facade and lit ring"><img src="assets/tile_05.webp" alt="Tower stand with ribbon facade and lit ring" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">06</span><div><h3>Tower stand with ribbon facade and lit ring</h3><p>SF-C-6X3-T-B-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_06.webp" data-caption="Tower stand with lantern facade and lit ring" aria-label="Enlarge Tower stand with lantern facade and lit ring"><img src="assets/tile_06.webp" alt="Tower stand with lantern facade and lit ring" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">07</span><div><h3>Tower stand with lantern facade and lit ring</h3><p>SF-C-6X3-T-L-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_07.webp" data-caption="Skyline stand with lantern facade, canopy and core" aria-label="Enlarge Skyline stand with lantern facade, canopy and core"><img src="assets/tile_07.webp" alt="Skyline stand with lantern facade, canopy and core" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">08</span><div><h3>Skyline stand with lantern facade, canopy and core</h3><p>SF-C-6X3-CR-K-L-P</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_08.webp" data-caption="Skyline stand with lantern facade, lit ring and central core" aria-label="Enlarge Skyline stand with lantern facade, lit ring and central core"><img src="assets/tile_08.webp" alt="Skyline stand with lantern facade, lit ring and central core" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">09</span><div><h3>Skyline stand with lantern facade, lit ring and central core</h3><p>SF-C-6X3-CC-K-L-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_09.webp" data-caption="Tower stand with ribbon facade, lit ring and core" aria-label="Enlarge Tower stand with ribbon facade, lit ring and core"><img src="assets/tile_09.webp" alt="Tower stand with ribbon facade, lit ring and core" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">10</span><div><h3>Tower stand with ribbon facade, lit ring and core</h3><p>SF-C-6X3-CR-T-B-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_10.webp" data-caption="Skyline stand with ribbon facade and lit ring" aria-label="Enlarge Skyline stand with ribbon facade and lit ring"><img src="assets/tile_10.webp" alt="Skyline stand with ribbon facade and lit ring" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">11</span><div><h3>Skyline stand with ribbon facade and lit ring</h3><p>SF-C-6X3-TR-K-B-R</p></div></div></article><article class="card"><button class="image-button" data-image="assets/tile_11.webp" data-caption="Skyline stand with canopy and central core" aria-label="Enlarge Skyline stand with canopy and central core"><img src="assets/tile_11.webp" alt="Skyline stand with canopy and central core" width="808" height="541" loading="lazy"><span class="expand">↗</span></button><div class="card-caption"><span class="number">12</span><div><h3>Skyline stand with canopy and central core</h3><p>SF-C-6X3-CC-K-P</p></div></div></article></div><p class="micro">Select a render to inspect it. Swipe or use the arrows to browse.</p></section>
+<section class="section divider" id="how"><div class="process-head"><div><p class="eyebrow">02 / The workflow</p><h2>From dimensions<br>to a client proposal.</h2></div><p class="intro">Keep your team focused on the client. We prepare the design options and supporting information for your next quotation.</p></div><div class="steps"><article class="step"><span class="number">01 — BRIEF</span><h3>Tell us what you need.</h3><p>Send the footprint, open sides, client logo and the modular system you use. Include any storage, display or furniture requirements.</p></article><article class="step"><span class="number">02 — DESIGN</span><h3>Compare the alternatives.</h3><p>Review twelve concepts for the same space and brand. Compare silhouettes, display areas and layouts in one presentation sheet.</p></article><article class="step"><span class="number">03 — PROPOSAL</span><h3>Present it as your own.</h3><p>Receive the presentation and parts breakdown with your company identity. Quotation figures use your rates when supplied.</p></article></div></section>
+<section class="section divider" id="pack"><div class="deliverables"><figure class="paper"><button class="image-button" data-image="assets/dossier_p1.png" data-caption="Sample proposal — page 1. Prices shown are indicative stand costs, not our design fee." aria-label="Enlarge sample proposal page"><img src="assets/dossier_p1.webp" width="910" height="1287" loading="lazy" alt="Actual StandFlex proposal page with a hero render and three supporting views"><span class="expand">↗</span></button><figcaption>Actual sample · Click to read page 1</figcaption></figure><div><p class="eyebrow">03 / Your deliverables</p><h2>A proposal you can<br>put to work.</h2><p class="intro">Visuals for your client. A parts breakdown for your team.</p><dl class="delivery-list"><div><dt>01 / The presentation</dt><dd>Main render, supporting views, overall height and indicative stand price.</dd></div><div><dt>02 / The alternatives</dt><dd>Twelve concepts for the same footprint, identified by design code.</dd></div><div><dt>03 / The bill of materials</dt><dd>Profiles, panels, furniture and applicable services, with quantities and pricing.</dd></div><div><dt>Plus / Your working data</dt><dd>CSV and JSON exports for your own quotation workflow.</dd></div></dl><button class="btn secondary" data-image="assets/sheet_6x3.png" data-caption="Full comparison sheet — twelve 6 × 3 m concepts">View the comparison sheet ↗</button><p class="micro" style="margin-top:16px">Prices visible in samples refer to the stand, not the StandFlex service fee.</p></div></div></section>
+<section class="section divider"><p class="eyebrow">04 / Built around your workflow</p><div class="facts"><article><h3>A defined modular system.</h3><p>40 × 40 mm profiles, a 1 m bay pitch and SEG fabric panels. Share your system specifications so suitability can be reviewed.</p></article><article><h3>Clear technical scope.</h3><p>Geometric fit and collision checks support design review. Structural engineering and venue approval remain with the builder.</p></article><article><h3>Your rates. Your identity.</h3><p>Use your rate card and company details in the proposal. Stand prices are indicative until your rates are applied.</p></article></div></section></main></div>
+<section class="offer" id="offer"><div class="wrap offer-grid"><div><p class="eyebrow">Start with a real enquiry</p><h2>Your first three<br>quotes are on us.</h2><p>Tell us about your next stand. We will confirm the brief, suitability and delivery time by email.</p><p class="micro">Design and quotation service for stand builders in Europe. Manufacturing and installation are not included in this offer. Fees for further work are agreed before you order.</p><a class="text-link" href="mailto:contact@standflex.eu">contact@standflex.eu ↗</a></div><form id="enquiry"><label>Length (m)<input name="length" type="number" min="0.1" step="0.1" placeholder="6" required></label><label>Depth (m)<input name="depth" type="number" min="0.1" step="0.1" placeholder="3" required></label><label>Stand layout<select name="layout"><option>Corner</option><option>Row</option><option>Peninsula</option><option>Island</option></select></label><label>Your modular system<input name="system" placeholder="System / manufacturer"></label><label class="full">Anything else?<textarea name="notes" placeholder="Storage, product displays, event date…"></textarea></label><button class="btn full" type="submit">Prepare enquiry email ↗</button><p class="full">Opens your email app with these details. Attach your client's logo and send it from there.</p><p class="full" id="email-status" role="status"></p></form></div></section><div class="wrap"><footer>
   <p>StandFlex is a product of Lavanda Magica Marketing Unip. Lda, Av. França 256, Lj 47, Sala 2, 4050-276 Porto, Portugal. VAT PT518021742.</p>
-  <p>contact@standflex.eu<br>+351 914 168 058</p>
-</footer>
+  <p><a href="mailto:contact@standflex.eu">contact@standflex.eu</a><br>+351 914 168 058</p>
+</footer></div><dialog id="viewer" aria-labelledby="viewer-title"><div class="bar"><p id="viewer-title"></p><button class="icon-btn" id="close" aria-label="Close image">×</button></div><img id="viewer-image" alt=""></dialog><script>
+const gallery=document.getElementById('gallery'),cards=[...gallery.children],prev=document.getElementById('prev'),next=document.getElementById('next'),counter=document.getElementById('counter');let active=0;
+function update(){active=cards.reduce((best,card,i)=>Math.abs(card.getBoundingClientRect().left-gallery.getBoundingClientRect().left)<Math.abs(cards[best].getBoundingClientRect().left-gallery.getBoundingClientRect().left)?i:best,0);counter.textContent=String(active+1).padStart(2,'0')+' / '+cards.length;prev.disabled=gallery.scrollLeft<2;next.disabled=gallery.scrollLeft+gallery.clientWidth>=gallery.scrollWidth-3}
+function move(dir){const step=cards[1].offsetLeft-cards[0].offsetLeft;gallery.scrollBy({left:dir*step,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}prev.onclick=()=>move(-1);next.onclick=()=>move(1);gallery.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);gallery.addEventListener('keydown',e=>{if(e.target!==gallery)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();move(e.key==='ArrowRight'?1:-1)}});update();
+const viewer=document.getElementById('viewer'),vi=document.getElementById('viewer-image');let opener;document.querySelectorAll('[data-image]').forEach(b=>b.addEventListener('click',()=>{opener=b;vi.src=b.dataset.image;vi.alt=b.dataset.caption;document.getElementById('viewer-title').textContent=b.dataset.caption;viewer.showModal();document.body.classList.add('modal-open')}));document.getElementById('close').onclick=()=>viewer.close();viewer.addEventListener('click',e=>{if(e.target===viewer){const r=viewer.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)viewer.close()}});viewer.addEventListener('close',()=>{document.body.classList.remove('modal-open');opener?.focus()});
+document.getElementById('enquiry').addEventListener('submit',e=>{e.preventDefault();const d=new FormData(e.target);const body=`Hello StandFlex,
 
-</body>
-</html>
+I'd like to discuss the introductory quote offer.
+
+Size: ${d.get('length')} × ${d.get('depth')} m
+Layout: ${d.get('layout')}
+System: ${d.get('system')}
+Requirements: ${d.get('notes')}
+
+I will attach the client logo.
+Please confirm the scope and delivery time.
+`;window.location.href='mailto:contact@standflex.eu?subject='+encodeURIComponent('StandFlex — design enquiry')+'&body='+encodeURIComponent(body);document.getElementById('email-status').textContent='If no email app opens, contact contact@standflex.eu directly. Your enquiry has not been sent by this website.'});
+</script></body></html>
