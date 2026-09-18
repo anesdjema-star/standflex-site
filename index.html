@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StandFlex — twelve buildable stand designs, priced, in an hour</title>
+<meta name="description" content="StandFlex turns a stand size into twelve buildable modular designs, each with a bill of materials and a price. For stand builders working with 40 mm systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEFF2;        /* brushed aluminium, light */
+    --paper-2:#E1E4E9;
+    --ink:#0F1B2D;          /* deep navy ink */
+    --ink-2:#4A5568;
+    --rule:#C3C9D2;         /* the 40 mm post */
+    --led:#2C6BFF;          /* lightbox blue */
+    --bay:calc(100vw / 12); /* one "bay" of the page grid */
+    --measure:64ch;
+    --font:"Archivo",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){--paper:#0F1B2D;--paper-2:#15233A;--ink:#EDEFF2;--ink-2:#AEB7C6;--rule:#2A3A55;--led:#6E9BFF}
+  }
+  :root[data-theme="dark"]{--paper:#0F1B2D;--paper-2:#15233A;--ink:#EDEFF2;--ink-2:#AEB7C6;--rule:#2A3A55;--led:#6E9BFF}
+
+  *{box-sizing:border-box;margin:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:var(--font);color:var(--ink);background:var(--paper);
+    line-height:1.45;font-size:clamp(16px,1.05vw,18px);
+    /* the bay grid: a hairline "post" every twelfth of the page */
+    background-image:repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px var(--bay));
+    background-attachment:fixed;
+  }
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  :focus-visible{outline:3px solid var(--led);outline-offset:3px}
+
+  header,main,footer{max-width:1240px;margin:0 auto;padding:0 calc(var(--bay)*0.5)}
+  header{display:flex;justify-content:space-between;align-items:baseline;padding-top:28px;padding-bottom:28px}
+  .mark{font-weight:800;font-stretch:112%;letter-spacing:-.02em;font-size:1.25rem;text-decoration:none}
+  .mark small{font-weight:400;font-stretch:88%;color:var(--ink-2);margin-left:.6em;font-size:.85rem}
+  nav a{text-decoration:none;color:var(--ink-2);margin-left:1.4em;font-size:.95rem}
+  nav a:hover{color:var(--ink)}
+
+  /* hero: the headline is the type treatment; the sheet is the memorable thing */
+  .hero{padding:6vh 0 4vh}
+  .hero h1{
+    font-weight:800;font-stretch:78%;line-height:.92;letter-spacing:-.035em;
+    font-size:clamp(2.8rem,7.2vw,6.4rem);max-width:14ch;
+  }
+  .hero p{max-width:var(--measure);margin-top:1.4rem;color:var(--ink-2);font-size:1.1em}
+  .hero .cta{margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+  .btn{
+    display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+    padding:.85em 1.4em;font-weight:700;border-radius:3px;border:2px solid var(--ink)
+  }
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn:hover{background:var(--led);border-color:var(--led);color:#fff}
+
+  .sheet{margin:5vh calc(var(--bay)*-0.5) 0;background:var(--ink);padding:calc(var(--bay)*0.25)}
+  .sheet img{width:100%;border-radius:2px}
+  .sheet figcaption{color:#C9D2E3;padding:.9rem .2rem 0;font-size:.9rem;font-stretch:90%}
+  .sheet figcaption b{color:#fff;font-weight:600}
+
+  section{padding:9vh 0 2vh}
+  h2{font-weight:800;font-stretch:80%;letter-spacing:-.025em;font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1;max-width:20ch}
+  .lede{max-width:var(--measure);color:var(--ink-2);margin-top:1rem}
+
+  /* three real steps → a sequence, so numbers are information */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--bay)*0.5);margin-top:3rem}
+  .steps>div{border-top:2px solid var(--ink);padding-top:1rem}
+  .steps h3{font-weight:700;font-stretch:90%;font-size:1.15rem;margin-bottom:.4rem}
+  .steps h3 span{display:inline-block;width:1.6em;color:var(--led);font-weight:800}
+  .steps p{color:var(--ink-2);font-size:.98rem}
+
+  /* what a builder receives: the pages, shown as pages */
+  .pages{display:grid;grid-template-columns:1.4fr 1fr;gap:calc(var(--bay)*0.5);margin-top:3rem;align-items:start}
+  .pages img{background:#fff;box-shadow:0 1px 0 var(--rule),0 12px 30px -18px rgba(15,27,45,.5)}
+  .pages ul{list-style:none;padding:0;margin-top:.5rem}
+  .pages li{padding:.9rem 0;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:auto 1fr;gap:1rem}
+  .pages li b{font-weight:700;font-stretch:90%}
+  .pages li span{color:var(--ink-2)}
+
+  /* the honest table: what is fixed, what is yours */
+  .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(var(--bay)*0.5);margin-top:3rem}
+  .facts dl{border-top:2px solid var(--ink);padding-top:1rem}
+  .facts dt{font-weight:700;font-stretch:90%}
+  .facts dd{color:var(--ink-2);margin-bottom:1rem}
+
+  .offer{background:var(--ink);color:var(--paper);margin:9vh calc(var(--bay)*-0.5) 0;padding:calc(var(--bay)*0.5)}
+  .offer h2{color:#fff}
+  .offer p{max-width:var(--measure);color:#C9D2E3;margin-top:1rem}
+  .offer .btn{background:#fff;color:var(--ink);border-color:#fff;margin-top:1.6rem}
+  .offer .btn:hover{background:var(--led);color:#fff;border-color:var(--led)}
+  .offer .fine{font-size:.9rem;margin-top:1.2rem;color:#9AA7BD}
+
+  footer{padding:3rem calc(var(--bay)*0.5) 4rem;color:var(--ink-2);font-size:.9rem;display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+  footer p{max-width:48ch}
+
+  @media (max-width:860px){
+    :root{--bay:calc(100vw / 6)}
+    .steps,.pages,.facts{grid-template-columns:1fr}
+    nav a{margin-left:1em}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="mark" href="#">StandFlex<small>for stand builders</small></a>
+  <nav><a href="#how">How it works</a><a href="#pack">What you get</a><a href="#offer">Try it</a></nav>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <h1>Twelve buildable stand designs, priced, in an hour.</h1>
+    <p>Give StandFlex a size and a template. It returns twelve distinct modular stands, every one assembled from 40 mm profiles, 1 m bays and SEG frames, checked for collisions, and priced to the part. Your client picks; your workshop packs exactly what is drawn.</p>
+    <div class="cta">
+      <a class="btn" href="#offer">Get your first three quotes free</a>
+      <a class="btn ghost" href="mailto:contact@standflex.eu?subject=StandFlex%20quote">contact@standflex.eu</a>
+    </div>
+
+    <figure class="sheet">
+      <img src="assets/sheet_6x3.png" alt="Twelve alternative designs for a 6 by 3 metre corner stand, each labelled with its design code" width="1600" height="1000" loading="eager">
+      <figcaption><b>6 × 3 m corner, one client brand, one request.</b> Towers, skylines, lit facades, canopies and interiors, all from the same stock of parts. Each design code is a build order.</figcaption>
+    </figure>
+  </section>
+
+  <section id="how">
+    <h2>From enquiry to priced proposal, before the client's coffee is cold.</h2>
+    <p class="lede">The generator does the part of the job that eats a designer's day: laying out the structure, checking it fits, and counting the parts. What is left for you is the decision.</p>
+    <div class="steps">
+      <div><h3><span>1</span>Send the size</h3><p>Length, depth, template (corner, row, peninsula, island) and the client's logo. That is the whole brief.</p></div>
+      <div><h3><span>2</span>Pick from twelve</h3><p>A single sheet in the client's colours. Every design passed a geometric fit and collision check before it was rendered.</p></div>
+      <div><h3><span>3</span>Send the dossier</h3><p>Four views, the twelve alternatives, and a bill of materials with unit and total prices, on your paper, in about an hour.</p></div>
+    </div>
+  </section>
+
+  <section id="pack">
+    <h2>What a builder actually receives.</h2>
+    <div class="pages">
+      <img src="assets/dossier_p1.png" alt="First page of a StandFlex proposal: large hero render, three smaller views, indicative price and company footer" width="1240" height="1754" loading="lazy">
+      <ul>
+        <li><b>Page 1</b><span>Hero render, front, side and detail views, overall height, indicative price.</span></li>
+        <li><b>Page 2</b><span>The twelve alternatives for the same footprint and brand, each with its design code.</span></li>
+        <li><b>Page 3</b><span>Bill of materials: posts by length, beams, SEG bays, lightboxes, roof, floor, furniture, services. Unit and total.</span></li>
+        <li><b>Plus</b><span>The BOM as CSV and JSON, so it drops into your own quoting sheet.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fixed where it must be. Yours where it should be.</h2>
+    <div class="facts">
+      <dl>
+        <dt>The system</dt><dd>40 × 40 mm aluminium profiles, 1.00 m bay pitch, SEG fabric frames, post heights 2.5 to 4.0 m. It maps onto Octanorm, beMatrix, SYMA and similar stock.</dd>
+        <dt>The check</dt><dd>Every design is a geometric fit and collision check: posts, beams, panels, counter, screen, furniture. Structural engineering stays with the builder.</dd>
+      </dl>
+      <dl>
+        <dt>The prices</dt><dd>Your rate card is loaded once. From then on every proposal carries your prices, your margin and your company footer.</dd>
+        <dt>The output</dt><dd>PDF, PNG sheets, CSV and JSON. Nothing to install, nothing to learn. You send a size, you receive a proposal.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="offer" id="offer">
+    <h2>Your first three quotes are on us.</h2>
+    <p>Reply with the size and template of your next real enquiry and the client's logo. The sheet and the dossier come back the same working day. No account, no commitment. If it saves you a designer's day, we talk about the next ones.</p>
+    <a class="btn" href="mailto:contact@standflex.eu?subject=StandFlex%20—%20first%20quote&body=Size%20(L%20x%20D):%0ATemplate%20(corner%2Frow%2Fpeninsula%2Fisland):%0ASystem%20you%20build%20with:%0AClient%20logo%20attached.">Send an enquiry to contact@standflex.eu</a>
+    <p class="fine">Introductory offer for stand builders in Europe. Prices in proposals are indicative until your rate card is loaded.</p>
+  </section>
+</main>
+
+<footer>
+  <p>StandFlex is a product of Lavanda Magica Marketing Unip. Lda, Av. França 256, Lj 47, Sala 2, 4050-276 Porto, Portugal. VAT PT518021742.</p>
+  <p>contact@standflex.eu<br>+351 914 168 058</p>
+</footer>
+
+</body>
+</html>
